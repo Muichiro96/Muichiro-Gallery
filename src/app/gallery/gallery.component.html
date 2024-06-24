@@ -1,0 +1,76 @@
+<button type="button" class="btn btn-success margins"  (click)="openModal(template)"><i class="fa-solid fa-upload"></i> Publish an image</button>
+ 
+<ng-template #template>
+  
+    <div class="card card-primary">
+        
+        
+        <div class="modal-header">
+                <h4 class="modal-title pull-left">Publish your content</h4>
+                
+            <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+              <span aria-hidden="true" class="visually-hidden">&times;</span>
+            </button>
+        </div>
+      <div class="modal-body"> 
+        <form [formGroup]="fg" (ngSubmit)="publish()" method="post" enctype="multipart/form-data">
+        <div class="card-body">
+        <div class="form-group">
+        <label for="name">Title :</label>
+        <input type="text" class="form-control" formControlName="name"  placeholder="name" [ngClass]="{ 'is-invalid': isPublished && name?.errors }">
+        <div *ngIf="name?.invalid && name?.dirty" class="invalid-feedback">
+            <div *ngIf="name?.hasError('required')">
+              This field is required.
+            </div>
+        </div>
+        </div>
+        <div class="form-group">
+        <label for="descr">Description :</label>
+        <textarea class="form-control" formControlName="description" placeholder="Enter ..." [ngClass]="{ 'is-invalid': isPublished && description?.errors }"></textarea>
+        <div *ngIf="description?.invalid && description?.dirty" class="invalid-feedback">
+            <div *ngIf="description?.hasError('minLength')">
+              You must at least type a 50 character.
+            </div>
+            <div *ngIf="description?.hasError('required')">
+                This field is required.
+
+              </div>
+        </div>
+        </div>
+        <div class="form-group">
+        <label for="myFile">File input</label>
+        <div class="input-group">
+        <div class="custom-file">
+           
+        <input type="file" class="form-control" id="fuUpload" formControlName="image" [ngClass]="{ 'is-invalid': isPublished && image?.errors }">
+        <div *ngIf="image?.invalid && image?.dirty" class="invalid-feedback" >
+         
+            <div *ngIf="image?.hasError('required')">
+                This field is required.
+
+              </div>
+           
+        </div>
+        </div>
+        </div>
+        <br/>
+        <div class="form-check ">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="check"  [ngClass]="{ 'is-invalid': isPublished && description?.errors }">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        <div *ngIf="check?.invalid && check?.dirty" class="invalid-feedback" [ngClass]="{ 'is-invalid': isPublished && check?.errors }">
+         
+            <div *ngIf="check?.hasError('requiredTrue')">
+                You must check this
+
+              </div>
+        </div>
+        </div>
+        </div>
+        
+       
+        <button type="submit" class="btn btn-primary button-margins">Submit</button>
+        </div>
+        </form>
+        </div> </div> 
+  
+</ng-template>

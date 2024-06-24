@@ -1,0 +1,75 @@
+@if(message.length>=2){
+    <div class="alert" [class.alert-danger]="isDanger" [class.alert-success]="isSuccess" role="alert">
+    {{message}}
+  </div>}
+    <div class="login-box">
+    
+    <div class="card card-outline card-primary" style="width: 417px;">
+    <div class="card-header text-center">
+    <a routerLink="/home" class="h1" style="text-decoration: none;"><b>Muichiro</b></a>&nbsp; Gallery
+    </div>
+    <div class="card-body">
+    <p class="login-box-msg">Sign in to start your session</p>
+    <form [formGroup]="g" (ngSubmit)="onSubmit()">
+    <div class="input-group mb-3">
+    <input type="text" class="form-control" formControlName="username" placeholder="Username"[ngClass]="{'is-invalid' : isSubmitted && username?.invalid}">
+    
+    <div class="input-group-append">
+    <div class="input-group-text">
+
+    <span class="fas fa-user"></span>
+    </div>
+    </div>
+    <div *ngIf="username?.invalid && username?.dirty" class="invalid-feedback">
+        <div *ngIf="username?.hasError('required')">
+          This field is required.
+        </div>
+    </div>
+    </div>
+    <div class="input-group mb-3">
+    <input type="password" class="form-control" formControlName="password"  placeholder="Password" [ngClass]="{'is-invalid' : isSubmitted && password?.invalid}">
+    <div class="input-group-append">
+        <div class="input-group-text">
+            <span class="fas fa-lock"></span>
+            </div>
+    </div>
+    <div *ngIf="password?.invalid && password?.dirty" class="invalid-feedback">
+        <div *ngIf="password?.hasError('required')">
+          This field is required.
+        </div>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-8">
+    <div class="icheck-primary">
+    <input type="checkbox" id="remember">
+    <label for="remember">
+    Remember Me
+    </label>
+    </div>
+    </div>
+    
+    <div class="col-4">
+    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+    </div>
+    
+    </div>
+    </form>
+    
+    
+    <p class="mb-1">
+    <a href="">I forgot my password</a>
+    </p>
+    <p class="mb-0">
+    <a routerLink="/register" class="text-center">Register a new membership</a>
+    </p>
+    </div>
+    
+    </div>
+    
+    </div>
+    
+    
+    
+    
+ 

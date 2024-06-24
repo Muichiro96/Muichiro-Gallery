@@ -5,11 +5,20 @@ import { HomeComponent } from './home/home.component';
 import { ContactComponent } from './contact/contact.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AboutComponent } from './about/about.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { canActivateUser } from './auth.guard';
+import { LoginComponent } from './login/login.component';
+import { GalleryComponent } from './gallery/gallery.component';
 
-const routes: Routes = [{path: 'menu',component : MenuComponent},{ path: 'home', component: HomeComponent },
-{ path: 'contact', component: ContactComponent },
-{ path: 'about', component: AboutComponent },
-{ path: '',   redirectTo: '/home', pathMatch: 'full' }, 
+const routes: Routes = [
+{path: 'menu',component : MenuComponent},
+{ path: 'home', component: HomeComponent },
+{ path: 'contact', component: ContactComponent ,canActivate:[canActivateUser] },
+{ path: 'about', component: AboutComponent ,canActivate:[canActivateUser]},
+{path: 'register' ,component: RegisterFormComponent},
+{path: 'login',component: LoginComponent},
+{path: 'gallery',component: GalleryComponent},
+{ path: '',   redirectTo: '/home', pathMatch: 'full' },
 { path: '**', component: PageNotFoundComponent },];
 
 @NgModule({
