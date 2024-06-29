@@ -29,7 +29,20 @@ username: string="";
 
   }
   ngOnInit(): void {
+    this.isRegisterPage= false;
     this.isAuthenticated=this.auth.isAuthenthicated();
+    this.router.events.subscribe((even)=>{
+      if(even instanceof NavigationEnd){
+        if(even.url === '/login' || even.url === '/register'){
+          this.showNav = false;
+          this.isRegisterPage= true;
+          
+      }else{
+        this.isRegisterPage= false;
+      }
+      
+    }});
+    
     if(this.isAuthenticated){
       this.username=this.auth.getUsername();
     }
@@ -49,18 +62,7 @@ username: string="";
           
       }}
   });
-    this.isRegisterPage= false;
-    this.router.events.subscribe((even)=>{
-      if(even instanceof NavigationEnd){
-        if(even.url === '/login' || even.url === '/register'){
-          this.showNav = false;
-          this.isRegisterPage= true;
-          
-      }else{
-        this.isRegisterPage= false;
-      }
-      
-    }});
+    
     
   }
   
