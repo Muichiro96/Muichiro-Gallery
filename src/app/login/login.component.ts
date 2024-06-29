@@ -46,7 +46,7 @@ message : String="";
         setTimeout(()=>{
          
         window.location.replace("http://localhost:4200/home");
-        },2000)
+        },1000)
       }else{
         this.isDanger=true;
         this.isSuccess= false;

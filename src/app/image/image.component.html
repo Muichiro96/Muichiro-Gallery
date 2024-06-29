@@ -47,16 +47,19 @@
 </div>
 @if(hasComment){}
 @else{
-<div style="margin-left: 60px;margin-top: 30px;">
+    <br/>
+    <br/>
+<div style="margin-left: 130px;margin-top: 30px;">
     @if(message.length>=2){
         <div class="alert alert-info"  role="alert ">
         {{message}}
-      </div>}	<h3>- Please share your review with us.</h3> 
-<div class="stars"><rating [(ngModel)]="formRating" [max]="max" [readonly]="false"></rating><br/>
+      </div>}	<h4>- Please share your review with us.</h4> 
+<div class="small"><rating [(ngModel)]="formRating" [max]="max" [readonly]="false"></rating><br/>
 </div><textarea placeholder="Add more details" class="form-control" [(ngModel)]="detail"  style="width: 80%; height: 100px;"></textarea><br/>
 <button type="submit" class="btn btn-success" style="margin-left: 950px;" (click)="onSubmit()">Submit</button></div>}
 <br/>
-<h1 class="text-center">Reviews</h1> 
-@for (review of reviews;track review.id){
-    <app-comment [rate]="review.rate" [username]="review.reviewer.username" [review]="review.review"></app-comment>
+@if(reviews.length>=1){
+<h1 class="text-center">Reviews</h1> }
+@for (review of reviews;track review.idReview){
+    <app-comment [rate]="review.rate" [username]="review.reviewer.username" [review]="review.review"></app-comment><br/>
 }

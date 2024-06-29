@@ -3,7 +3,7 @@ exports.getPublications=async (req,res)=>{
     const publications=await db.publication.findAll({
     where:{
         status : "approved"
-    }
+    },include: [{association:'reviews',required:false,attributes:['rate']}]
  });
  
  if(publications){

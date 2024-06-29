@@ -25,6 +25,7 @@ import { RatingModule } from 'ngx-bootstrap/rating';
 import { ImageComponent } from './image/image.component';
 import { FavoriteService } from './favorite.service';
 import { CommentComponent } from './comment/comment.component';
+import { RatingComponent } from './rating/rating.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { CommentComponent } from './comment/comment.component';
     LoginComponent,
     GalleryComponent,
     ImageComponent,
-    CommentComponent
+    CommentComponent,
+    RatingComponent
   ],
   imports: [ CarouselModule.forRoot(),ModalModule.forRoot(),RatingModule.forRoot(),BrowserAnimationsModule,
     BsDropdownModule.forRoot(),

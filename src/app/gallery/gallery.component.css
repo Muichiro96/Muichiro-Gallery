@@ -14,9 +14,8 @@ h1 {
     content: "";
     flex: 1 1;
     border-bottom: 1px solid;
-    margin-right: 80px;
-    margin-left: 80px;
-
+    margin-right: 400px;
+    margin-left: 400px;
   }
   h1:before {
     margin-right: 10px

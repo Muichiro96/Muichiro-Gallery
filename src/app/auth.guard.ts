@@ -11,6 +11,6 @@ export const canActivateUser : CanActivateFn = (  route,  state) => {
     return true;
   }
   else{
-    router.navigate(["/login"]);
+    window.location.replace("http://localhost:4200/login");
   return false;}
   };

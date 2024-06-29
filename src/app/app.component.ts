@@ -51,10 +51,11 @@ username: string="";
   });
     this.isRegisterPage= false;
     this.router.events.subscribe((even)=>{
-      if(even instanceof NavigationStart){
+      if(even instanceof NavigationEnd){
         if(even.url === '/login' || even.url === '/register'){
           this.showNav = false;
           this.isRegisterPage= true;
+          
       }else{
         this.isRegisterPage= false;
       }

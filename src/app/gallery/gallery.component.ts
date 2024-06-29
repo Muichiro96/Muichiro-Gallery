@@ -87,6 +87,16 @@ isDanger:  Boolean=false;
   openModal(template: TemplateRef<void>) {
     this.modalRef = this.modalService.show(template);
   }
+  returnRate(element:any){
+
+      let sum=0;
+      element.reviews.forEach((element:any)=> {
+        
+        sum+=element.rate});
+      if(sum===0){
+        return 0;
+      }
+      return sum / element.reviews.length;}
   ngOnInit(){
     this.message ="";
     this.favoriteService.getUserFavorites().subscribe((data)=>{
@@ -95,6 +105,7 @@ isDanger:  Boolean=false;
           this.favs=data.favorites;
         }
     });
+    
     this.pubService.getPublications().subscribe((data : any)=>{
       if(data.publications){
       this.pubs=data.publications;}});
