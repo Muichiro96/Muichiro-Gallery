@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule} from '@angular/platform-browser';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -39,7 +40,8 @@ import { CommentComponent } from './comment/comment.component';
     ImageComponent,
     CommentComponent
   ],
-  imports: [ CarouselModule.forRoot(),ModalModule.forRoot(),RatingModule.forRoot(),
+  imports: [ CarouselModule.forRoot(),ModalModule.forRoot(),RatingModule.forRoot(),BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
     AppRoutingModule,ReactiveFormsModule,CommonModule,BrowserModule,FormsModule
   ],
   providers: [

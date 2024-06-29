@@ -88,7 +88,7 @@
 @for( element of pubs; track element.idPublication){
 <div class="col-md-3 mb-4 mt-4">
 <div class="card ">
-  <img src="http://localhost:8080/{{element.imagePath}}" class="card-img-top" alt="..." style="height: 300px;">  
+  <img src="http://localhost:8080/{{element.imagePath}}" class="card-img-top" alt="..." style="height: 230px;">  
 
   <div class="card-body" style="height: 50px;">
     <button  style="border-radius: 100%; border: 8px black; margin-left: 0px;" value="{{element.idPublication}}" (click)="onClick($event)"><i  [ngClass]="exist(element.idPublication) ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i></button>

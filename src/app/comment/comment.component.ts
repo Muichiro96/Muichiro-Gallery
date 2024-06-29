@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 export class CommentComponent {
   @Input()
   rate:number=0;
+  @Input()
+  review: any;
+  @Input()
+  username:any;
+max: number=5;
+isReadonly: boolean=true;
 }

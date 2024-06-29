@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
     type: DataTypes.STRING
 },
 description:{
-    type: DataTypes.STRING
+    type: DataTypes.STRING(400)
+    
 },
 status: {
     type: DataTypes.STRING

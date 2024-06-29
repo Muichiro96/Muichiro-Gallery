@@ -1,12 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublicationService {
+  getReviews(id:string): Observable<any> {
+    return this.http.get(`http://localhost:8080/review/list/${id}`,{ headers : this.auth.headerToken()});
+  }
 
   constructor(private http: HttpClient,private auth : AuthService) { }
   getPublications(){
@@ -33,6 +37,7 @@ export class PublicationService {
     return this.http.post("http://localhost:8080/publish",formData,{ headers : this.auth.headerToken()});
 
   }
+  
   getAverageRate(id:string){
     return this.http.get(`http://localhost:8080/review/avg/${id}`,{ headers : this.auth.headerToken()});}
   deletePublication(id: string){

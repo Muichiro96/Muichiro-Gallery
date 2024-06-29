@@ -50,6 +50,7 @@ export class AuthService {
   logOut(){
     if(isPlatformBrowser(this.platformId))
     window.sessionStorage.clear();
+    window.location.replace("http://localhost:4200/home");
   }
   isAuthenthicated(): Boolean{
  if(this.getToken())

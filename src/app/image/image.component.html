@@ -55,3 +55,8 @@
 <div class="stars"><rating [(ngModel)]="formRating" [max]="max" [readonly]="false"></rating><br/>
 </div><textarea placeholder="Add more details" class="form-control" [(ngModel)]="detail"  style="width: 80%; height: 100px;"></textarea><br/>
 <button type="submit" class="btn btn-success" style="margin-left: 950px;" (click)="onSubmit()">Submit</button></div>}
+<br/>
+<h1 class="text-center">Reviews</h1> 
+@for (review of reviews;track review.id){
+    <app-comment [rate]="review.rate" [username]="review.reviewer.username" [review]="review.review"></app-comment>
+}

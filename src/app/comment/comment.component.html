@@ -1,1 +1,7 @@
-<p>comment works!</p>
+<div class="container"><div class="row"><div class="col mt-4">
+    <div class="card"><div class="card-header"><img class="profile-user-img img-fluid img-circle mr-4" src="assets/avatar.png" alt="User profile picture" > &nbsp;<b>{{username}}</b><br/></div><div class="card-body">
+        <rating [(ngModel)]="rate" [max]="max" [readonly]="isReadonly"></rating>
+        <br/>
+        <p>{{review}}</p>
+    </div></div>
+</div></div></div>

@@ -12,6 +12,7 @@ import $ from 'jquery';
   styleUrl: './image.component.css'
 })
 export class ImageComponent implements OnInit{
+  reviews: any;
 onSubmit() {
   if(this.detail ==="" && this.formRating===0){
     this.message="Please Fill at least one of them";
@@ -65,7 +66,11 @@ if(this.route.snapshot.paramMap.get('id') && this.route.snapshot.paramMap.get('t
     this.router.navigate(['error']);
   }
  });
- 
+ this.imageService.getReviews(this.id).subscribe((data:any)=>{
+  if(data.reviews){
+    this.reviews=data.reviews;
+  }
+ });
 
 }
 

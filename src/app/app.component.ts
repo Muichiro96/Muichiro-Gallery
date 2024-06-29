@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NavigationEnd, NavigationStart, Router} from '@angular/router';
 import $ from 'jquery';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,20 +10,29 @@ import $ from 'jquery';
   
 })
 export class AppComponent implements OnInit{
+logOut() {
+this.auth.logOut();
+}
 
 title = 'muichiro';
 showNav  :Boolean;
 isRegisterPage: Boolean;
-
+isAuthenticated : Boolean=false;
+username: string="";
   
   
-  constructor(private router : Router){
+  constructor(private router : Router,private auth : AuthService){
     this.showNav = true;
+    
     this.isRegisterPage= false;
 
 
   }
   ngOnInit(): void {
+    this.isAuthenticated=this.auth.isAuthenthicated();
+    if(this.isAuthenticated){
+      this.username=this.auth.getUsername();
+    }
     $(document).ready(function(){
       var currentDate = new Date();
       console.log(currentDate);
@@ -41,7 +51,7 @@ isRegisterPage: Boolean;
   });
     this.isRegisterPage= false;
     this.router.events.subscribe((even)=>{
-      if(even instanceof NavigationEnd){
+      if(even instanceof NavigationStart){
         if(even.url === '/login' || even.url === '/register'){
           this.showNav = false;
           this.isRegisterPage= true;
