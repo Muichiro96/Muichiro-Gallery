@@ -6,6 +6,7 @@ const url="http://localhost:8080/auth/";
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,6 +28,16 @@ export class AuthService {
   getToken() : any{
     if(isPlatformBrowser(this.platformId)){
     return sessionStorage.getItem("Token");}
+  }
+  headerToken(): HttpHeaders{
+    const headers=new HttpHeaders().set('x-access-token',this.getToken());
+    return headers;
+
+  }
+  setExpireDate(date : Date){
+    if(isPlatformBrowser(this.platformId)){
+      window.sessionStorage.setItem("expireAt",date.toString());
+    }
   }
   setUsername(username :string){
     if(isPlatformBrowser(this.platformId)){

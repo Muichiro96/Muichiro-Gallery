@@ -1,5 +1,5 @@
 <html><head><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+ES+Deco:wght@100..400&family=Playwrite+US+Modern:wght@100..400&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
 
@@ -10,7 +10,7 @@
   
   <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
 </head><body [ngClass]="{ 'register-page': isRegisterPage }" style="min-height: 570.781px;">
-  <nav *ngIf="showNav" class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav *ngIf="showNav" class="navbar navbar-expand-lg bg-body-tertiary fixed-top" >
   <div class="container-fluid">
     <a class="navbar-brand"   routerLink="/home">
         <img src="assets/logo.png" alt="Muichiro" width="30" height="24"> Muichiro
@@ -20,11 +20,11 @@
         <a class="nav-link " routerLinkActive="'active'"  aria-current="page" routerLink="/home">Home</a>
         <a class="nav-link " routerLinkActive="'active'" routerLink="/gallery">Gallery</a>
 
-        <a class="nav-link " routerLinkActive="'active'" routerLink="/contact">Contacts</a>
+        <a class="nav-link " routerLinkActive="'active'" routerLink="/contact">Contact us</a>
         <a class="nav-link " routerLinkActive="'active'" routerLink="/about">About</a>
         <a class="nav-link disabled" aria-disabled="true">Premium</a>
         
-
+        
         <li class="nav-item"><a class="nav-link" routerLink="/register">Sign Up</a></li>
         </div>
       </div>

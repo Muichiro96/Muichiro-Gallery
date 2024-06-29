@@ -1,11 +1,13 @@
 const db = require("../models");
-exports.getPublications=(req,res)=>{
-    const publications= db.publication.findAll({
+exports.getPublications=async (req,res)=>{
+    const publications=await db.publication.findAll({
     where:{
         status : "approved"
     }
  });
+ 
  if(publications){
+   
     res.json({ publications: publications});
     return;
  }else{
@@ -13,23 +15,42 @@ exports.getPublications=(req,res)=>{
     return;
  }
 };
-exports.getPublication=(req,res)=>{
+exports.getPublication=async (req,res)=>{
     const id=parseInt(req.params.id);
- const publication = db.publication.findOne({
+    
+    const title=req.params.title;
+ const publication =await db.publication.findOne({include:[{association: 'publisher',attributes: ["username"]}],
     where:{
         status : "approved",
-        id: id
+        idPublication: id,
+        title: title
     }
  });
  if(publication){
     res.json({
-        publication: publication
+        image: publication
     })
     return;
  }
  else{
-    res.status(404).json({message : "publication not found"});
+    res.json({message : "publication not found"});
     return;
  }
+};
+exports.Publish=(req,res)=>{
+   
+   const filePath = `express/uploads/${req.file.filename}`
+   console.log(filePath);
+   db.publication.create({
+      title:req.body.title,
+      description: req.body.description,
+      status: "pending",
+      imagePath : filePath,
+      userId: req.userId
+
+   }).then(()=>{
+      res.json({message : "Publication Created Successfully"});
+   });
+   return;
 };
     

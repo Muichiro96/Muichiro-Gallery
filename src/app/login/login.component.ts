@@ -35,12 +35,13 @@ message : String="";
     this.isSubmitted=true;
     if(this.g.valid){
     this.auth.login(this.g.value).subscribe((data)=>{
-      console.log(data); 
+      
       if(data.token && data.username){
         this.isSuccess=true;
         this.isDanger = false;
         this.auth.setToken(data.token);
         this.auth.setUsername(data.username);
+        this.auth.setExpireDate(new Date(new Date().getTime() + (60 * 60 * 1000)));
         this.message=data.message;
         setTimeout(()=>{
          

@@ -1,4 +1,3 @@
-const { error } = require("console");
 const db = require("../models");
 const conf = require("../config/auth.config")
 const bcrypt = require('bcrypt');

@@ -11,7 +11,7 @@ import { ContactComponent } from './contact/contact.component';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AuthService } from './auth.service';
 import { PublicationService } from './publication.service';
@@ -20,7 +20,10 @@ import { LoginComponent } from './login/login.component';
 import { NbIconModule, NbStatusService } from '@nebular/theme';
 import { CommonModule } from '@angular/common';
 import { GalleryComponent } from './gallery/gallery.component';
-
+import { RatingModule } from 'ngx-bootstrap/rating';
+import { ImageComponent } from './image/image.component';
+import { FavoriteService } from './favorite.service';
+import { CommentComponent } from './comment/comment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,13 +35,15 @@ import { GalleryComponent } from './gallery/gallery.component';
     PageNotFoundComponent,
     RegisterFormComponent,
     LoginComponent,
-    GalleryComponent
+    GalleryComponent,
+    ImageComponent,
+    CommentComponent
   ],
-  imports: [ CarouselModule.forRoot(),ModalModule.forRoot(),
-    AppRoutingModule,ReactiveFormsModule,CommonModule,BrowserModule
+  imports: [ CarouselModule.forRoot(),ModalModule.forRoot(),RatingModule.forRoot(),
+    AppRoutingModule,ReactiveFormsModule,CommonModule,BrowserModule,FormsModule
   ],
   providers: [
-    AuthService,PublicationService,provideHttpClient(withFetch())
+    AuthService,PublicationService,FavoriteService,provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
