@@ -1,0 +1,59 @@
+@if(message.length>=2){
+  <div class="alert alert-primary" role="alert">
+  {{message}}
+</div>}
+<div class="register-box" style="position: static;">
+  <div class="register-logo">
+    <a href="http://localhost:4200/home" ><img src="../../assets/logo.png" style="width: 80px;height:80px;"/></a>
+ <b class="text-center">Muichiro</b>&nbsp; Gallery
+  </div></div>
+  <div class="card" style="width:350px; height: 410px;">
+  <div class="card-body register-card-body">
+    <p class="login-box-msg">Register a new membership</p>
+   <form [formGroup]="register" (ngSubmit)="signUp()" >
+      
+      
+      <div class="form-group">
+        <label for="email" class="form-label" >Email address :</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="example@email.com" formControlName="email" [ngClass]="{ 'is-invalid':  email?.invalid && isSubmitted}">
+        <div *ngIf="email?.invalid && email?.dirty" class="invalid-feedback">
+          <div *ngIf="email?.hasError('required')">
+            Email is required.
+          </div>
+          <div *ngIf="email?.hasError('email')">
+  Please respect Email Format ! </div>
+  <div *ngIf="message">{{message}}</div>
+  </div>
+
+      </div>
+      
+        
+      
+      <div class="form-group">
+        <label for="username" class="form-label">Username :</label>
+        <input type="text" class="form-control"  formControlName="username" placeholder="Bob12" [ngClass]="{ 'is-invalid':  username?.invalid && isSubmitted}">
+        <div *ngIf="username?.hasError('minlength')"  class="invalid-feedback">
+
+          Username must be at least 8 characters long.
+        </div>
+        <div *ngIf="username?.hasError('required')"  class="invalid-feedback">
+
+          Username is required.
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password" class="form-label">Password :</label>
+        <input type="password" class="form-control" formControlName="password" placeholder="p@assword"  [ngClass]="{ 'is-invalid':  password?.invalid && isSubmitted}">
+        <div *ngIf="password?.hasError('pattern')" class="invalid-feedback">must contain at least one special character,uppercase,numbers       </div>
+        <div *ngIf="password?.hasError('required')"  class="invalid-feedback">
+
+          Password is required.
+        </div>
+      </div>
+      <br/>
+      <input type="checkbox" checked> I agree to the terms
+      <br/>
+      <button type="submit"  class="btn btn-primary button-margins" style="margin-right: 8px;">Sign up</button>
+    </form>
+  </div></div>
