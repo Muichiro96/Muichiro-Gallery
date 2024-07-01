@@ -31,6 +31,9 @@ username: string="";
   ngOnInit(): void {
     this.isRegisterPage= false;
     this.isAuthenticated=this.auth.isAuthenthicated();
+    if(this.isAuthenticated){
+      this.username=this.auth.getUsername();
+    }
     this.router.events.subscribe((even)=>{
       if(even instanceof NavigationEnd){
         if(even.url === '/login' || even.url === '/register'){
@@ -43,9 +46,7 @@ username: string="";
       
     }});
     
-    if(this.isAuthenticated){
-      this.username=this.auth.getUsername();
-    }
+    
     $(document).ready(function(){
       var currentDate = new Date();
       console.log(currentDate);
