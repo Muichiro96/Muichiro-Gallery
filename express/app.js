@@ -20,6 +20,8 @@ const { Publish } = require("./controllers/pubController");
 const path = require('path');
 const { routeFavorite } = require("./routes/favoriteRoute");
 const { reviewRouter } = require("./routes/reviewRoute");
+const { likesrouter } = require("./routes/likesRoute");
+const { dislikesrouter } = require("./routes/dislikesRoute");
 app.use(cors());
 app.use('/express/uploads',express.static(path.join(__dirname, 'uploads')));
 // parse requests of content-type - application/json
@@ -32,8 +34,17 @@ db.user.hasMany(db.favorite,{as:'favoritesPubs',foreignKey:'userId'})
 db.favorite.belongsTo(db.user,{as:'theOnePrefer',foreignKey:'userId'});
 db.publication.hasMany(db.review,{as:'reviews',foreignKey: 'publicationId'});
 db.review.belongsTo(db.publication,{as: 'publicationReview',foreignKey: 'publicationId'});
-db.user.hasMany(db.review,{as:'userReviews',foreignkey: 'userId'});
+db.user.hasMany(db.review,{as:'userReviews',foreignKey: 'userId'});
 db.review.belongsTo(db.user,{as:'reviewer',foreignKey:'userId'});
+db.user.hasMany(db.like,{as: 'like',foreignKey :'userId'});
+db.like.belongsTo(db.user,{as:'liker',foreignKey:'userId'});
+db.review.hasMany(db.like,{as :'reviewLikes',foreignKey: 'reviewId'});
+db.like.belongsTo(db.review,{as:'reviewLiked',foreignKey:'reviewId'});
+db.user.hasMany(db.dislike,{as: 'dislike',foreignKey :'userId'});
+db.dislike.belongsTo(db.user,{as:'disliker',foreignKey:'userId'});
+db.review.hasMany(db.dislike,{as :'reviewDislikes',foreignKey: 'reviewId'});
+db.dislike.belongsTo(db.review,{as:'reviewDisliked',foreignKey:'reviewId'});
+
 app.use(express.urlencoded({ extended: true }));
 app.use("/auth",route);
 app.use("/publish",[verifyToken,multer({ storage ,fileFilter: function (req, file, callback) {
@@ -46,6 +57,8 @@ app.use("/publish",[verifyToken,multer({ storage ,fileFilter: function (req, fil
 app.use("/publication",verifyToken,router);
 app.get("/test",verifyToken,test);
 app.use("/favorites",verifyToken,routeFavorite);
+app.use("/like",verifyToken,likesrouter);
+app.use("/dislike",verifyToken,dislikesrouter);
 app.use("/review",verifyToken,reviewRouter);
 app.post("/send_message",(req,res)=> {
 

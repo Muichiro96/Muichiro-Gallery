@@ -4,4 +4,12 @@
         <br/>
         <p>{{review}}</p>
     </div></div>
+    <button class="btn text-info" value="{{idReview}}" (click)="like($event)"><i [ngClass]="isLiked()?
+        'fa-solid fa-thumbs-up':
+        'fa-regular fa-thumbs-up'"></i> &nbsp; {{likes.length}}
+        
+
+      </button><button class="btn text-danger" value="{{idReview}}" (click)="dislike($event)"><i [ngClass]="isDisliked()?
+        'fa-solid fa-thumbs-down':
+        'fa-regular fa-thumbs-down'"></i>&nbsp; {{dislikes.length}}</button>
 </div></div></div>

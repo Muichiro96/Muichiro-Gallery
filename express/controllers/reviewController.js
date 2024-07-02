@@ -27,7 +27,7 @@ exports.hasReview=async(req,res)=>{
 exports.getReviews=async(req,res)=>{
     const Reviews=await db.review.findAll({where:{ publicationId : req.params.id,
 
-    },include: [ {association : 'reviewer',attributes: ['username']}]});
+    },include: [ {association : 'reviewer',attributes: ['username']},{association : 'reviewLikes' ,attributes: ['userId'],required:false},{association: 'reviewDislikes',attributes: ['userId'],required:false}]});
     res.json({reviews: Reviews});
 }
 exports.getAverageRate=async(req,res)=>{

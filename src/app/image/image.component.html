@@ -61,5 +61,6 @@
 @if(reviews.length>=1){
 <h1 class="text-center">Reviews</h1> }
 @for (review of reviews;track review.idReview){
-    <app-comment [rate]="review.rate" [username]="review.reviewer.username" [review]="review.review"></app-comment>
+
+    <app-comment [rate]="review.rate" [username]="review.reviewer.username" [review]="review.review" [idReview]="review.idReview" [likes]="review.reviewLikes" [dislikes]="review.reviewDislikes" [userdislikes]="dislikes" [userlikes]="likes"></app-comment>
 }<br/>

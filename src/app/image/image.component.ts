@@ -5,6 +5,7 @@ import { PublicationService } from '../publication.service';
 import { FavoriteService } from '../favorite.service';
 import { AuthService } from '../auth.service';
 import $ from 'jquery';
+import { LikeService } from '../like.service';
 
 @Component({
   selector: 'app-image',
@@ -13,6 +14,8 @@ import $ from 'jquery';
 })
 export class ImageComponent implements OnInit{
   reviews: any;
+  likes: any;
+  dislikes:any;
 onSubmit() {
   if(this.detail ==="" && this.formRating===0){
     this.message="Please Fill at least one of them";
@@ -37,7 +40,7 @@ onSubmit() {
 formRating=0;
 detail="";
 message="";
-constructor(private route : ActivatedRoute,private imageService : PublicationService,private router:Router,private favoriteService : FavoriteService,private auth :AuthService)
+constructor(private route : ActivatedRoute,private imageService : PublicationService,private router:Router,private favoriteService : FavoriteService,private auth :AuthService,private likeService : LikeService)
 {}
 ngOnInit(){
 
@@ -66,15 +69,26 @@ if(this.route.snapshot.paramMap.get('id') && this.route.snapshot.paramMap.get('t
     this.router.navigate(['error']);
   }
  });
+ this.likeService.getUserLikesDislikes().subscribe(data=>{
+  
+  
+    this.likes=data.likes;
+    this.dislikes=data.dislikes;
+  
+ })
+ 
  this.imageService.getReviews(this.id).subscribe((data:any)=>{
   if(data.reviews){
     this.reviews=data.reviews;
-  }
+     }
  });
 
 }
 
 }
+
+
+
 onClick(element :any){
   const button = element.currentTarget;
   var data = { publicationId : button.value};
