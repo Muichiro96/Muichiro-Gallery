@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
   styleUrl: './contact.component.css'
 })
 export class ContactComponent implements OnInit{
+ private subscriptions: Subscription = new Subscription();
 fg : FormGroup;
 response : String="";
 isSubmitted: any;
@@ -41,16 +42,19 @@ constructor(private fb : FormBuilder,private http : HttpClient) {
       email: this.fg.value.email,
       message: this.fg.value.message
     });
-    post.subscribe((data)=>{
+    this.subscriptions.add(post.subscribe((data)=>{
       
       
         
         this.response=data.message;
 
       
-    });
+    }));
   }
  }
  ngOnInit(): void {
- }
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+  
 }
