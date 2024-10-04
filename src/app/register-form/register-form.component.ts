@@ -11,6 +11,7 @@ import { error } from 'console';
   styleUrl: './register-form.component.css'
 })
 export class RegisterFormComponent {
+  private subscriptions: Subscription = new Subscription();
   modalRef?: BsModalRef;
   register : FormGroup;
   isSubmitted: Boolean;
@@ -42,12 +43,15 @@ export class RegisterFormComponent {
     this.isSubmitted = true;
     console.log(this.register.value);
     if(this.register.valid){
-      this.authService.register(this.register.value).subscribe((data) =>{
+      this.subscriptions.add(this.authService.register(this.register.value).subscribe((data) =>{
           console.log(data);
           this.message=data.message;
         }
-    )
+    ));
      } 
+  }
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
  
 }
