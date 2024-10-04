@@ -13,6 +13,7 @@ import { LikeService } from '../like.service';
   styleUrl: './image.component.css'
 })
 export class ImageComponent implements OnInit{
+    private subscriptions: Subscription = new Subscription(); 
   reviews: any;
   likes: any;
   dislikes:any;
@@ -21,12 +22,12 @@ onSubmit() {
     this.message="Please Fill at least one of them";
 
   }else{
-    this.imageService.createReview({rate:this.formRating,review:this.detail,pubId : this.id}).subscribe((data :any)=>{
+    this.subscriptions.add(this.imageService.createReview({rate:this.formRating,review:this.detail,pubId : this.id}).subscribe((data :any)=>{
       if(data.message){
         this.message=data.message;
         setTimeout(()=>window.location.reload(),1000);
       }
-    });
+    }));
   }
 }
   hasComment=false;
@@ -44,23 +45,23 @@ constructor(private route : ActivatedRoute,private imageService : PublicationSer
 {}
 ngOnInit(){
 
-this.favoriteService.getUserFavorites().subscribe((data)=>{
+this.subscriptions.add(this.favoriteService.getUserFavorites().subscribe((data)=>{
    
     if(data.favorites){
       this.favs=data.favorites;
     }
-});
+}));
 if(this.route.snapshot.paramMap.get('id') && this.route.snapshot.paramMap.get('title')){
   this.id=this.route.snapshot.paramMap.get('id');
   this.title=this.route.snapshot.paramMap.get('title');
-  this.imageService.getAverageRate(this.id).subscribe((data :any)=>{
+  this.subscriptions.add(this.imageService.getAverageRate(this.id).subscribe((data :any)=>{
     
     this.rate=data.avg;
-  })
-  this.imageService.hasReview(this.id).subscribe((data:any)=>{
+  }));
+  this.subscriptions.add(this.imageService.hasReview(this.id).subscribe((data:any)=>{
     this.hasComment=data.has;
-  });
- this.imageService.getPublication(this.id,this.title).subscribe((data :any)=>{
+  }));
+ this.subscriptions.add(this.imageService.getPublication(this.id,this.title).subscribe((data :any)=>{
   
   if(data.image){
       this.image=data.image;
@@ -68,20 +69,20 @@ if(this.route.snapshot.paramMap.get('id') && this.route.snapshot.paramMap.get('t
   }else{
     this.router.navigate(['error']);
   }
- });
- this.likeService.getUserLikesDislikes().subscribe(data=>{
+ }));
+ this.subscriptions.add(this.likeService.getUserLikesDislikes().subscribe(data=>{
   
   
     this.likes=data.likes;
     this.dislikes=data.dislikes;
   
- })
+ }));
  
- this.imageService.getReviews(this.id).subscribe((data:any)=>{
+ this.subscriptions.add(this.imageService.getReviews(this.id).subscribe((data:any)=>{
   if(data.reviews){
     this.reviews=data.reviews;
      }
- });
+ }));
 
 }
 
@@ -114,4 +115,7 @@ onClick(element :any){
 exist(id :number){
   return this.favs.some((el:any)=> el.publicationId===id);
 }
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
 }
