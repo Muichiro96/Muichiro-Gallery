@@ -14,6 +14,7 @@ import { AuthService } from '../auth.service';
   styleUrl: './gallery.component.css'
 })
 export class GalleryComponent implements OnInit{
+  private subscription: Subscription = new Subscription();
   max = 5;
   rate =0;
   isReadonly = true;
@@ -70,7 +71,7 @@ isDanger:  Boolean=false;
         formData.append("image",this.imageUploaded,this.imageUploaded.name);
         formData.append("title",this.fg.value.name);
         formData.append("description",this.fg.value.description);
-        this.pubService.createPublication(formData).subscribe((data : any)=>{
+        this.subscriptions.add(this.pubService.createPublication(formData).subscribe((data : any)=>{
           if(data.message){
       this.isDanger=false;
       this.isSuccess=true;
@@ -81,7 +82,7 @@ isDanger:  Boolean=false;
       this.message="";
       
           }
-        })
+        }));
     }
   }
   openModal(template: TemplateRef<void>) {
@@ -99,16 +100,16 @@ isDanger:  Boolean=false;
       return sum / element.reviews.length;}
   ngOnInit(){
     this.message ="";
-    this.favoriteService.getUserFavorites().subscribe((data)=>{
+     this.subscriptions.add(this.favoriteService.getUserFavorites().subscribe((data)=>{
         console.log(data)
         if(data.favorites){
           this.favs=data.favorites;
         }
-    });
+    }));
     
-    this.pubService.getPublications().subscribe((data : any)=>{
+     this.subscriptions.add(this.pubService.getPublications().subscribe((data : any)=>{
       if(data.publications){
-      this.pubs=data.publications;}});
+      this.pubs=data.publications;}}));
       
   }
   exist(id :number){
@@ -137,5 +138,9 @@ isDanger:  Boolean=false;
 
       });
     }
+ngOnDestroy() {
+    
+    this.subscriptions.unsubscribe();
   }
+}
 
