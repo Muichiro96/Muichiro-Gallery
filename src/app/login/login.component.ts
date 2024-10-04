@@ -34,7 +34,7 @@ message : String="";
     
     this.isSubmitted=true;
     if(this.g.valid){
-    this.auth.login(this.g.value).subscribe((data)=>{
+    this.subscriptions.add(this.auth.login(this.g.value).subscribe((data)=>{
       
       if(data.token && data.username){
         this.isSuccess=true;
@@ -52,7 +52,7 @@ message : String="";
         this.isSuccess= false;
         this.message=data.message;
       }
-    })}
+    }));}
   }
   ngOnInit(){
     if(this.auth.isAuthenthicated()){
@@ -61,5 +61,8 @@ message : String="";
       this.message= new String("you are already logged In!");
       window.location.replace("http://localhost:4200/home");
     }
+  }
+   ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }
